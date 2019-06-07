@@ -1,10 +1,22 @@
 deploy:
-  - provider: s3
-  - provider: codedeploy
-    access_key_id: "AKIAJPQADFPSNKODHCLQ"
-    secret_access_key: "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"
-    bucket: "S3 Bucket"
-    key: rootkey.csv
-    application: PrestaShop
-    deployment_group: Prestarocket
-    region: us-east-2
+- provider: s3
+  access_key_id: AKIAJPQADFPSNKODHCLQ
+  secret_access_key: &1
+    secure: IpCp5A4tp3Bc234zZHTtPs8xCoqmPm5emEX4JSgSTI17tW+kol8c11j8UaEedwjYhI64l43Oi0gzIK+Q4jI3Y2b+7dXO+SFYxDA9aj1kSOyBuU+A4PwrKmBmFqOYepi8S/1v7IkspSPyMK5UtN7IV+ep9gjv/Mjuev1EaCsmw4zTlglmF5hqu34XsmQS4VQlFm/T8ddb8FnJ5gn/MMiDR1rWzqOsUMciokxxR0Uh3g/mjpj2v615tk6shGk041NTZLOKQAloe5Xp0enCz4G2PMuBG+gyld4owLCG00SupuXNEJ6cQ09rWdVThVh8nUrwcQUe5LZOQT+AJdFWz8IBqYVWW9Gf4J0lSrsCtjSspT35YQG4q0Zuf/VhjeQoVUjMc7zwlvB84r0k//wwjES1zrvbfyiC5jZ8aASJgVHHoMKExHfwNDkIeUo957H9FSKF0g4vNJnM1A/tYjGI7hEr0GpjvpiV3FVHYW2S5rqUS/t9Ijj+G5yG6tz9jEmyXYKjP2hUjJiOUa+lSBdOMNWmj4Uk5MXa9sdJqkYeeC1HxMjoBncUkP99AY2ILCyPkR/KXh6NJscOsgONk05Q7DLKP4+RjMpnLcvWobl5uuzoYTqvwVdZwIyhF9+5ddDvrzgMX/wmsW++v6dozYquDQ5zasuUrDkYPeqzKYnd4jx/l14=
+  local_dir: dpl_cd_upload
+  skip_cleanup: true
+  on: &2
+    repo: francommekevin/prestashop
+  bucket: kevinprestashop
+- provider: codedeploy
+  access_key_id: AKIAJPQADFPSNKODHCLQ
+  secret_access_key: *1
+  bucket: kevinprestashop
+  key: kevinprestashop
+  bundle_type: ''
+  application: prestashop
+  deployment_group: ''
+  on: *2
+before_deploy:
+- mkdir -p dpl_cd_upload
+- mv kevinprestashop dpl_cd_upload/kevinprestashop
