@@ -1,0 +1,9 @@
+deploy:
+  - provider: s3
+  - provider: codedeploy
+    access_key_id: "AKIAJPQADFPSNKODHCLQ"
+    secret_access_key: "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"
+    bucket: "S3 Bucket"
+    key: rootkey.csv
+    application: PrestaShop
+    deployment_group: Prestarocket
